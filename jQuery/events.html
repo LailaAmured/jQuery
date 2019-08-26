@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
+    <script> 
+        // $().ready(function(){
+        //     var count=0;
+        //     $("button").click(
+        //         function(){
+        //             count++;
+        //             $("#output").append("<p>"+ count +". New Row<p/>")
+        //         }
+        //     )
+        // })
+
+        $().ready(function(){
+            if(localStorage.getItem("count")){
+                var count=localStorage.getItem("count")
+            } else{
+            var count=0; }
+
+            $("output").html(localStorage.getItem("list"))
+
+            $("button").click(
+                function(){
+                    
+                    count++;
+                    $("#output").append("<p>"+ count +". "+ $("input").val() +" <p/>")
+                    localStorage("list", $("#output").html())
+                    
+                    $("input").val("") 
+                    
+                }
+            ) 
+            $("p").click(
+                function() {
+                    var p=$(this) 
+                    console.log($(this));
+                    p.css("color", "red");
+                }
+            )
+
+            $("body").on("click", "p", function (){
+                var p = $(this)
+                //dinamiskiem elem
+                p.css("text-decoration", "line-through")
+                p.hide(5000, "linear");           
+            })
+
+            $("output").sortable(); 
+
+        })
+    </script>
+
+</head>
+<body>
+    <input type="text">
+    <button>Add new row</button> 
+    <div id="output"></div>
+</body>
+</html>
